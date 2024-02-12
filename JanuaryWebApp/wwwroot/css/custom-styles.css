@@ -1,0 +1,48 @@
+﻿.plan-column {
+    padding: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.plan-details {
+    list-style-type: none;
+    padding: 0;
+}
+
+    .plan-details li {
+        margin-bottom: 10px;
+    }
+
+/* Styles for big screens */
+@media only screen and (min-width: 601px) {
+    .plan-column {
+        width: 25%;
+        display: inline-block;
+    }
+}
+
+/* Styles for arrows */
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    color: black; /* Change arrow color to black */
+}
+
+/* Change arrow background color */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Adjust carousel indicator color */
+.carousel-indicators .active {
+    background-color: black;
+}
+
+/* Add black border to container */
+.container {
+    border: 1px solid black;
+    padding: 20px;
+    margin-top: 20px;
+}

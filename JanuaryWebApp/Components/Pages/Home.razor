@@ -1,5 +1,7 @@
 ﻿@page "/"
 
+@inject IJSRuntime JSRuntime
+
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, @UserName!</h1>
@@ -17,7 +19,7 @@
     <div>
         @if (!string.IsNullOrEmpty(UserProfilePictureUrl))
         {
-            <img src="@UserProfilePictureUrl" alt="Profile Picture" style="max-width: 150px; max-height: 150px; border-radius:15%"/>
+            <img src="@UserProfilePictureUrl" alt="Profile Picture" style="max-width: 150px; max-height: 150px; border-radius:15%" />
         }
         else
         {
@@ -32,6 +34,102 @@ else
     </p>
 }
 
+<title>Vacation Rental Plans</title>
+<!-- Wrap each tr with a div to make it a slide -->
+
+<div class="container">
+    <!-- For big screens, show all columns -->
+    <div class="row d-none d-md-flex">
+        <div class="col plan-column">
+            <h2>Plan 1 (Cheap)</h2>
+            <ul class="plan-details">
+                <li>Accommodation for 2</li>
+                <li>Access to common facilities</li>
+                <li>Free Wi-Fi</li>
+            </ul>
+        </div>
+        <div class="col plan-column">
+            <h2>Plan 2</h2>
+            <ul class="plan-details">
+                <li>Accommodation for 4</li>
+                <li>Private balcony</li>
+                <li>Swimming pool access</li>
+            </ul>
+        </div>
+        <div class="col plan-column">
+            <h2>Plan 3</h2>
+            <ul class="plan-details">
+                <li>Accommodation for 6</li>
+                <li>Beachfront view</li>
+                <li>Complimentary breakfast</li>
+            </ul>
+        </div>
+        <div class="col plan-column">
+            <h2>Plan 4 (Premium)</h2>
+            <ul class="plan-details">
+                <li>Accommodation for 8</li>
+                <li>Private villa</li>
+                <li>24/7 butler service</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- For small screens, use the carousel -->
+    <div id="carouselPlans" class="carousel slide d-md-none" data-bs-ride="carousel" data-bs-interval="false">
+        <!-- Disable auto play -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="plan-column">
+                    <h2>Plan 1 (Cheap)</h2>
+                    <ul class="plan-details">
+                        <li>Accommodation for 2</li>
+                        <li>Access to common facilities</li>
+                        <li>Free Wi-Fi</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="plan-column">
+                    <h2>Plan 2</h2>
+                    <ul class="plan-details">
+                        <li>Accommodation for 4</li>
+                        <li>Private balcony</li>
+                        <li>Swimming pool access</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="plan-column">
+                    <h2>Plan 3</h2>
+                    <ul class="plan-details">
+                        <li>Accommodation for 6</li>
+                        <li>Beachfront view</li>
+                        <li>Complimentary breakfast</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="plan-column">
+                    <h2>Plan 4 (Premium)</h2>
+                    <ul class="plan-details">
+                        <li>Accommodation for 8</li>
+                        <li>Private villa</li>
+                        <li>24/7 butler service</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselPlans" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselPlans" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </a>
+    </div>
+</div>
+
 @code {
     // Replace this with the logic to check if the user is logged in
     bool IsUserLoggedIn => true;
@@ -41,4 +139,12 @@ else
 
     // Replace this with the logic to get the profile picture URL of the logged-in user
     string UserProfilePictureUrl => IsUserLoggedIn ? "/Content/Images/cate.jpg" : "/default-profile-picture.jpg";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initSlickSlider");
+        }
+    }
 }
