@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="JanuaryWebApp.styles.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" href="~/css/custom-styles.css" />
+    <link rel="stylesheet" href="css/custom-styles.css" /> <!-- Corrected path -->
 
     <HeadOutlet />
 
@@ -21,14 +21,17 @@
 
 <body>
     <Routes />
-    <script src="_framework/blazor.web.js"></script>
-    <!-- Add jQuery -->
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Add Slick slider JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <!-- Your script to initialize Slick slider -->
-    <script src="~/scripts/slick.min.js"></script>
-    <script src="~/scripts/slick-slider.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize Slick slider
+            $('.carousel').slick();
+        });
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 
