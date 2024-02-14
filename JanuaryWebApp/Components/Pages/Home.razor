@@ -34,101 +34,58 @@ else
     </p>
 }
 
-<title>Vacation Rental Plans</title>
-<!-- Wrap each tr with a div to make it a slide -->
-
 <div class="container">
-    <!-- For big screens, show all columns -->
-    <div class="row d-none d-md-flex">
-        <div class="col plan-column">
-            <h2>Plan 1 (Cheap)</h2>
-            <ul class="plan-details">
-                <li>Accommodation for 2</li>
-                <li>Access to common facilities</li>
-                <li>Free Wi-Fi</li>
-            </ul>
+    <div class="row">
+        <!-- Slick slider -->
+        <div class="carousel">
+            <div class="plan-column">
+                <!-- Slide 1 content -->
+                <h2>Plan 1 (Cheap)</h2>
+                <ul class="plan-details">
+                    <li>Accommodation for 2</li>
+                    <li>Access to common facilities</li>
+                    <li>Free Wi-Fi</li>
+                </ul>
+            </div>
+            <div class="plan-column">
+                <!-- Slide 2 content -->
+                <h2>Plan 2</h2>
+                <ul class="plan-details">
+                    <li>Accommodation for 4</li>
+                    <li>Private balcony</li>
+                    <li>Swimming pool access</li>
+                </ul>
+            </div>
+            <div class="plan-column">
+                <!-- Slide 3 content -->
+                <h2>Plan 3</h2>
+                <ul class="plan-details">
+                    <li>Accommodation for 6</li>
+                    <li>Beachfront view</li>
+                    <li>Complimentary breakfast</li>
+                </ul>
+            </div>
+            <div class="plan-column">
+                <!-- Slide 4 content -->
+                <h2>Plan 4 (Premium)</h2>
+                <ul class="plan-details">
+                    <li>Accommodation for 8</li>
+                    <li>Private villa</li>
+                    <li>24/7 butler service</li>
+                </ul>
+            </div>
+            <!-- Add more slides here if needed -->
         </div>
-        <div class="col plan-column">
-            <h2>Plan 2</h2>
-            <ul class="plan-details">
-                <li>Accommodation for 4</li>
-                <li>Private balcony</li>
-                <li>Swimming pool access</li>
-            </ul>
-        </div>
-        <div class="col plan-column">
-            <h2>Plan 3</h2>
-            <ul class="plan-details">
-                <li>Accommodation for 6</li>
-                <li>Beachfront view</li>
-                <li>Complimentary breakfast</li>
-            </ul>
-        </div>
-        <div class="col plan-column">
-            <h2>Plan 4 (Premium)</h2>
-            <ul class="plan-details">
-                <li>Accommodation for 8</li>
-                <li>Private villa</li>
-                <li>24/7 butler service</li>
-            </ul>
-        </div>
-    </div>
 
-    <!-- For small screens, use the carousel -->
-    <div id="carouselPlans" class="carousel slide d-md-none" data-bs-ride="carousel" data-bs-interval="false">
-        <!-- Disable auto play -->
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="plan-column">
-                    <h2>Plan 1 (Cheap)</h2>
-                    <ul class="plan-details">
-                        <li>Accommodation for 2</li>
-                        <li>Access to common facilities</li>
-                        <li>Free Wi-Fi</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="plan-column">
-                    <h2>Plan 2</h2>
-                    <ul class="plan-details">
-                        <li>Accommodation for 4</li>
-                        <li>Private balcony</li>
-                        <li>Swimming pool access</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="plan-column">
-                    <h2>Plan 3</h2>
-                    <ul class="plan-details">
-                        <li>Accommodation for 6</li>
-                        <li>Beachfront view</li>
-                        <li>Complimentary breakfast</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="plan-column">
-                    <h2>Plan 4 (Premium)</h2>
-                    <ul class="plan-details">
-                        <li>Accommodation for 8</li>
-                        <li>Private villa</li>
-                        <li>24/7 butler service</li>
-                    </ul>
-                </div>
-            </div>
+        <!-- Navigation buttons for mobile view -->
+        <div class="btn-container">
+            <button class="manual-prev">Previous</button>
+            <button class="manual-next">Next</button>
         </div>
-        <a class="carousel-control-prev" href="#carouselPlans" role="button" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselPlans" role="button" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </a>
     </div>
 </div>
+
+
 
 @code {
     // Replace this with the logic to check if the user is logged in
@@ -139,12 +96,18 @@ else
 
     // Replace this with the logic to get the profile picture URL of the logged-in user
     string UserProfilePictureUrl => IsUserLoggedIn ? "/Content/Images/cate.jpg" : "/default-profile-picture.jpg";
+}
 
+
+<!-- Your component markup here -->
+@code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            // Call the JavaScript function to initialize the slick slider
             await JSRuntime.InvokeVoidAsync("initSlickSlider");
         }
     }
 }
+

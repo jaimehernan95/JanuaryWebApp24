@@ -46,3 +46,34 @@
     padding: 20px;
     margin-top: 20px;
 }
+
+/* Styling for table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+/* Styling for navigation buttons */
+.btn-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+    .btn-container button {
+        padding: 10px 20px;
+        margin: 0 10px;
+        cursor: pointer;
+    }
+
+/* Hide navigation buttons on desktop */
+@media (min-width: 768px) {
+    .btn-container {
+        display: none;
+    }
+}
