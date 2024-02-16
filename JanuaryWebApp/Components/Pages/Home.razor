@@ -1,4 +1,7 @@
-﻿@page "/"
+﻿To display the four columns only on larger screens (such as desktops) and switch to a single column on smaller screens (like mobile devices), you can use Bootstrap's grid system with responsive classes. Here's how you can modify the HTML code to achieve this:
+
+```html
+@page "/"
 
 @inject IJSRuntime JSRuntime
 
@@ -34,12 +37,11 @@ else
     </p>
 }
 
-<div class="container">
+<div class="container mt-4">
     <div class="row">
-        <!-- Slick slider -->
-        <div class="carousel">
+        <!-- Columns for larger screens -->
+        <div class="col-lg-3 d-none d-lg-block">
             <div class="plan-column">
-                <!-- Slide 1 content -->
                 <h2>Plan 1 (Cheap)</h2>
                 <ul class="plan-details">
                     <li>Accommodation for 2</li>
@@ -47,8 +49,9 @@ else
                     <li>Free Wi-Fi</li>
                 </ul>
             </div>
+        </div>
+        <div class="col-lg-3 d-none d-lg-block">
             <div class="plan-column">
-                <!-- Slide 2 content -->
                 <h2>Plan 2</h2>
                 <ul class="plan-details">
                     <li>Accommodation for 4</li>
@@ -56,8 +59,9 @@ else
                     <li>Swimming pool access</li>
                 </ul>
             </div>
+        </div>
+        <div class="col-lg-3 d-none d-lg-block">
             <div class="plan-column">
-                <!-- Slide 3 content -->
                 <h2>Plan 3</h2>
                 <ul class="plan-details">
                     <li>Accommodation for 6</li>
@@ -65,8 +69,9 @@ else
                     <li>Complimentary breakfast</li>
                 </ul>
             </div>
+        </div>
+        <div class="col-lg-3 d-none d-lg-block">
             <div class="plan-column">
-                <!-- Slide 4 content -->
                 <h2>Plan 4 (Premium)</h2>
                 <ul class="plan-details">
                     <li>Accommodation for 8</li>
@@ -74,18 +79,28 @@ else
                     <li>24/7 butler service</li>
                 </ul>
             </div>
-            <!-- Add more slides here if needed -->
         </div>
 
-        <!-- Navigation buttons for mobile view -->
-        <div class="btn-container">
-            <button class="manual-prev">Previous</button>
-            <button class="manual-next">Next</button>
+        <!-- Column for mobile view (one column at a time) -->
+        <div class="col-12 text-center d-lg-none">
+            <div class="plan-column" id="mobile-column">
+                <!-- Initially, only the first column is displayed -->
+                <h2>Plan 1 (Cheap)</h2>
+                <ul class="plan-details">
+                    <li>Accommodation for 2</li>
+                    <li>Access to common facilities</li>
+                    <li>Free Wi-Fi</li>
+                </ul>
+            </div>
         </div>
     </div>
+
+    <!-- Navigation buttons for mobile view -->
+    <div class="btn-container text-center d-lg-none">
+        <button class="manual-prev" onclick="goToPreviousColumn()">Previous</button>
+        <button class="manual-next" onclick="goToNextColumn()">Next</button>
+    </div>
 </div>
-
-
 
 @code {
     // Replace this with the logic to check if the user is logged in
@@ -98,16 +113,100 @@ else
     string UserProfilePictureUrl => IsUserLoggedIn ? "/Content/Images/cate.jpg" : "/default-profile-picture.jpg";
 }
 
-
-<!-- Your component markup here -->
 @code {
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            // Call the JavaScript function to initialize the slick slider
-            await JSRuntime.InvokeVoidAsync("initSlickSlider");
+            // Call the JavaScript function to initialize navigation
+            await JSRuntime.InvokeVoidAsync("initNavigation");
         }
     }
 }
 
+<script>
+    let currentColumnIndex = 0;
+    const columns = [
+        `<div class="plan-column">
+            <h2>Plan 1 (Cheap)</h2>
+            <ul class="plan-details">
+                <li>Accommodation for 2</li>
+                <li>Access to common facilities</li>
+                <li>Free Wi-Fi</li>
+            </ul>
+        </div>`,
+        `<div class="plan-column">
+            <h2>Plan 2</h2>
+            <ul class="plan-details">
+                <li>Accommodation for 4</li>
+                <li>Private balcony</li>
+                <li>Swimming pool access</li>
+            </ul>
+        </div>`,
+        `<div class="plan-column">
+            <h2>Plan 3</h2>
+            <ul class="plan-details">
+                <li>Accommodation for 6</li>
+                <li>Beachfront view</li>
+                <li>Complimentary breakfast</li>
+            </ul>
+        </div>`,
+        `<div class="plan-column">
+            <h2>Plan 4 (Premium)</h2>
+            <ul class="plan-details">
+                <li>Accommodation for 8</li>
+                <li>Private villa</li>
+                <li>24/7 butler service</li>
+            </ul>
+        </div>`
+    ];
+
+    function showCurrentColumn() {
+        const mobileColumn = document.getElementById('mobile-column');
+        mobileColumn.innerHTML = columns[currentColumnIndex];
+    }
+
+    function goToPreviousColumn() {
+        currentColumnIndex = Math.max(currentColumnIndex - 1, 0);
+        showCurrentColumn();
+    }
+
+    function goToNextColumn() {
+        currentColumnIndex = Math.min(currentColumnIndex + 1, columns.length - 1);
+        showCurrentColumn();
+    }
+
+    window.initNavigation = () => {
+        showCurrentColumn();
+    };
+</script>
+
+<style>
+    /* Custom CSS for the plan columns */
+    .plan-column {
+        border: 1px solid #ddd;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .plan-details {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .plan-details li {
+        margin-bottom: 10px;
+    }
+
+    /* Custom CSS for navigation buttons */
+    .btn-container {
+        margin-top: 20px;
+    }
+
+    .manual-prev,
+    .manual-next {
+        margin-right: 10px;
+        padding: 8px;
+    }
+ </style>
