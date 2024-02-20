@@ -1,7 +1,4 @@
-﻿To display the four columns only on larger screens (such as desktops) and switch to a single column on smaller screens (like mobile devices), you can use Bootstrap's grid system with responsive classes. Here's how you can modify the HTML code to achieve this:
-
-```html
-@page "/"
+﻿@page "/"
 
 @inject IJSRuntime JSRuntime
 
@@ -13,92 +10,101 @@
     Welcome to your new app. We're excited to have you on board!
 </p>
 
-@if (IsUserLoggedIn)
-{
-    <p>
-        Great to see you again, @UserName. You're now logged in!
-    </p>
-
-    <div>
-        @if (!string.IsNullOrEmpty(UserProfilePictureUrl))
-        {
-            <img src="@UserProfilePictureUrl" alt="Profile Picture" style="max-width: 150px; max-height: 150px; border-radius:15%" />
-        }
-        else
-        {
-            <p>No profile picture uploaded. <a href="/profile">Upload a picture</a></p>
-        }
-    </div>
-}
-else
-{
-    <p>
-        If you don't have an account, <a href="/register">register here</a>.
-    </p>
-}
-
 <div class="container mt-4">
-    <div class="row">
-        <!-- Columns for larger screens -->
-        <div class="col-lg-3 d-none d-lg-block">
-            <div class="plan-column">
-                <h2>Plan 1 (Cheap)</h2>
-                <ul class="plan-details">
-                    <li>Accommodation for 2</li>
-                    <li>Access to common facilities</li>
-                    <li>Free Wi-Fi</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-3 d-none d-lg-block">
-            <div class="plan-column">
-                <h2>Plan 2</h2>
-                <ul class="plan-details">
-                    <li>Accommodation for 4</li>
-                    <li>Private balcony</li>
-                    <li>Swimming pool access</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-3 d-none d-lg-block">
-            <div class="plan-column">
-                <h2>Plan 3</h2>
-                <ul class="plan-details">
-                    <li>Accommodation for 6</li>
-                    <li>Beachfront view</li>
-                    <li>Complimentary breakfast</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-3 d-none d-lg-block">
-            <div class="plan-column">
-                <h2>Plan 4 (Premium)</h2>
-                <ul class="plan-details">
-                    <li>Accommodation for 8</li>
-                    <li>Private villa</li>
-                    <li>24/7 butler service</li>
-                </ul>
-            </div>
-        </div>
+    <!-- Profile picture -->
+    <div class="row mb-4">
+        <div class="col-lg-6 offset-lg-3">
+            @if (IsUserLoggedIn)
+            {
+                <p>
+                    Great to see you again, @UserName. You're now logged in!
+                </p>
 
-        <!-- Column for mobile view (one column at a time) -->
-        <div class="col-12 text-center d-lg-none">
-            <div class="plan-column" id="mobile-column">
-                <!-- Initially, only the first column is displayed -->
-                <h2>Plan 1 (Cheap)</h2>
-                <ul class="plan-details">
-                    <li>Accommodation for 2</li>
-                    <li>Access to common facilities</li>
-                    <li>Free Wi-Fi</li>
-                </ul>
-            </div>
+                <div>
+                    @if (!string.IsNullOrEmpty(UserProfilePictureUrl))
+                    {
+                        <img src="@UserProfilePictureUrl" alt="Profile Picture" style="max-width: 100%; border-radius: 15%;" />
+                    }
+                    else
+                    {
+                        <p>No profile picture uploaded. <a href="/profile">Upload a picture</a></p>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>
+                    If you don't have an account, <a href="/register">register here</a>.
+                </p>
+            }
         </div>
     </div>
 
-    <!-- Navigation buttons for mobile view -->
-    <div class="btn-container text-center d-lg-none">
-        <button class="manual-prev" onclick="goToPreviousColumn()">Previous</button>
-        <button class="manual-next" onclick="goToNextColumn()">Next</button>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Plan columns for larger screens -->
+            <div class="row d-none d-lg-flex">
+                <div class="col-lg-3">
+                    <div class="plan-column">
+                        <h4>Plan 1 (Cheap)</h4>
+                        <ul class="plan-details">
+                            <li>Accommodation for 2</li>
+                            <li>Access to common facilities</li>
+                            <li>Free Wi-Fi</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="plan-column">
+                        <h4>Plan 2</h4>
+                        <ul class="plan-details">
+                            <li>Accommodation for 4</li>
+                            <li>Private balcony</li>
+                            <li>Swimming pool access</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="plan-column">
+                        <h4>Plan 3</h4>
+                        <ul class="plan-details">
+                            <li>Accommodation for 6</li>
+                            <li>Beachfront view</li>
+                            <li>Complimentary breakfast</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="plan-column">
+                        <h4>Plan 4 (Premium)</h4>
+                        <ul class="plan-details">
+                            <li>Accommodation for 8</li>
+                            <li>Private villa</li>
+                            <li>24/7 butler service</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plan column for smaller screens with navigation buttons -->
+            <div class="row d-lg-none">
+                <div class="col-12 text-center">
+                    <div class="plan-column" id="mobile-column">
+                        <!-- Initially, only the first column is displayed -->
+                        <h4>Plan 1 (Cheap)</h4>
+                        <ul class="plan-details">
+                            <li>Accommodation for 2</li>
+                            <li>Access to common facilities</li>
+                            <li>Free Wi-Fi</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="btn-container text-center">
+                    <button class="manual-prev btn btn-primary" onclick="goToPreviousColumn()">Previous</button>
+                    <button class="manual-next btn btn-primary" onclick="goToNextColumn()">Next</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -195,9 +201,9 @@ else
         padding: 0;
     }
 
-    .plan-details li {
-        margin-bottom: 10px;
-    }
+        .plan-details li {
+            margin-bottom: 10px;
+        }
 
     /* Custom CSS for navigation buttons */
     .btn-container {
@@ -207,6 +213,6 @@ else
     .manual-prev,
     .manual-next {
         margin-right: 10px;
-        padding: 8px;
+        padding
     }
- </style>
+</style>
